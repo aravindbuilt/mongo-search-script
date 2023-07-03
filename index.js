@@ -21,13 +21,17 @@ async function main() {
       console.error(
         `Current Batch: ${apiKey}.${searchCollectionName}: ${resultSetCount}`
       );
-      for (let iteration = 0; ; iteration = iteration + 100) {
+      for (let iteration = 0; ; iteration = iteration + 1000) {
         let resultSet = await db
           .collection(`${apiKey}.${searchCollectionName}`)
-          .find({}, { limit: 100, skip: iteration })
+          .find({}, { limit: 1000, skip: iteration })
           .toArray();
 
         if (resultSet.length == 0) break;
+
+        console.error(
+          `Current Iteration: ${apiKey}.${searchCollectionName}: ${iteration}`
+        );
 
         for (let doc of resultSet) {
           let docString = JSON.stringify(doc);
