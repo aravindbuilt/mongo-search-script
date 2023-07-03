@@ -42,7 +42,7 @@ async function main() {
     }
   }
 
-  await clusterDbClient.close();
+  await dbClient.close();
 }
 
 main()
